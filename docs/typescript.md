@@ -63,9 +63,9 @@ No script mode tudo funciona como um arquivo único, ou seja, se criarmos uma fu
 Basta exportarmos ou importamos uma variavel, função, que o typescript assume que estamos utilizando modulos:
 
 ```ts
-const name = 'Alexandre'
+const myName = 'Alexandre'
 
-export default name
+export default myName
 ```
 
 ## tsconfig.json
@@ -77,7 +77,8 @@ yarn tsc --init
 ```
 
 Um arquivo chamado tsconfig.json será criado na raiz do projeto.\
-Vamos passar por alguns pontos desse arquivo:
+Vamos passar por alguns pontos desse arquivo.\
+Temos uma opção chamada de ```"compilerOptions"``` e dentro dele existem algumas configurações:
 
 - ```"target"```: qual a versão do ECMAScript(javascript) no ambiente que será executado o código. Isso vai depender muito de projeto pra projeto, vou deixar o valor como ```"ESNext"```:
 
@@ -123,3 +124,31 @@ Vamos passar por alguns pontos desse arquivo:
 // "allowUnusedLabels": true,
 // "allowUnreachableCode": true,
 ```
+
+- ```"esModuleInterop"``` é o que permite a gente fazer import e export dentro dos nossos arquivos:
+
+```json
+"esModuleInterop": true
+```
+
+Agora fora do ```"compilerOptions"```, vamos criar uma outra configuraçãoo, ```"include": ["./src"]```, ficando assim:
+
+```json
+{
+  "compiletOptions": {
+    ...
+  },
+  "include": [
+    "./src"
+  ]
+}
+```
+
+src será a pasta de entrada do nosso projeto.\
+Agora podemos testar, rodando o comando para fazer a compilação:
+
+```sh
+npx tsc
+```
+
+Uma pasta chamada ``dist`` será criada, contendo a mesma estrutura de pastas do ``src`` só que no formato .js, estes são os arquivos que irão pra produção, não devemos editá-los, se quisermos fazer uma modificação devemos fazer la no ``src``, e depois compilar novamente.\
